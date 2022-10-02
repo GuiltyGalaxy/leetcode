@@ -24,8 +24,8 @@ public class L2392 {
 			rowGraph.add(new ArrayList<>());
 			colGraph.add(new ArrayList<>());
 		}
-		// «Ø¥ß¦³¦V¹Ï
-		// ¼Æ­È-1¬O¬°¤F­n¯à¹ïÀ³array
+		// å»ºç«‹æœ‰å‘åœ–
+		// æ•¸å€¼-1æ˜¯ç‚ºäº†è¦èƒ½å°æ‡‰array
 		for (int[] rowCondition : rowConditions) {
 			int u = rowCondition[0] - 1;
 			int v = rowCondition[1] - 1;
@@ -42,7 +42,7 @@ public class L2392 {
 		int colNumber = 0;
 		Queue<Integer> queueRow = new ArrayDeque<>();
 		Queue<Integer> queueCol = new ArrayDeque<>();
-		// °_©lÂI¬°0¡A¸ò¦³¦V¹Ï¥¼´y­zªº²×ÂI
+		// èµ·å§‹é»ç‚º0ï¼Œè·Ÿæœ‰å‘åœ–æœªæè¿°çš„çµ‚é»
 		for (int i = 0; i < k; i++) {
 			if (colInDegree[i] == 0)
 				queueCol.add(i);
@@ -51,17 +51,17 @@ public class L2392 {
 		}
 		boolean[] rowVisited = new boolean[k];
 		boolean[] colVisited = new boolean[k];
-		// ÀË¬d¦³¦V¹Ï¬O§_¬°¤@­ÓÀô
+		// æª¢æŸ¥æœ‰å‘åœ–æ˜¯å¦ç‚ºä¸€å€‹ç’°
 		while (!queueRow.isEmpty()) {
 			int node = queueRow.remove();
 			if (!rowVisited[node]) {
 				rowVisited[node] = true;
-				// ¨Cvisit¹L¤@­ÓÂI«á¡AÀu¥ıÅv©¹«á®¿
+				// æ¯visitéä¸€å€‹é»å¾Œï¼Œå„ªå…ˆæ¬Šå¾€å¾ŒæŒª
 				assignments[node][0] = rowNumber++;
-				// ²¾°£¸ÓÂI©Ò¦³ªº³s±µÂI
+				// ç§»é™¤è©²é»æ‰€æœ‰çš„é€£æ¥é»
 				for (int child : rowGraph.get(node)) {
 					rowInDegree[child]--;
-					// ·í¨Ìªş¸ÓÂIªº«ü¼Ğ³£²¾°£¥Nªí¸ÓÂI¤]¦¨¬°¤F¤@­Ó²×ÂI
+					// ç•¶ä¾é™„è©²é»çš„æŒ‡æ¨™éƒ½ç§»é™¤ä»£è¡¨è©²é»ä¹Ÿæˆç‚ºäº†ä¸€å€‹çµ‚é»
 					if (rowInDegree[child] == 0) {
 						queueRow.offer(child);
 					}
@@ -81,10 +81,10 @@ public class L2392 {
 				}
 			}
 		}
-		// ¿é¥Xµ²ªG
+		// è¼¸å‡ºçµæœ
 		int[][] answer = new int[k][k];
 		for (int i = 0; i < k; i++) {
-			// ¦³¥ô¤@ÂI¨Svisited¥Nªí¸Ó¦³¦V¹Ï¤£¬OÀô
+			// æœ‰ä»»ä¸€é»æ²’visitedä»£è¡¨è©²æœ‰å‘åœ–ä¸æ˜¯ç’°
 			if (!colVisited[i] || !rowVisited[i])
 				return new int[][] {};
 			answer[assignments[i][0]][assignments[i][1]] = i + 1;

@@ -19,7 +19,7 @@ public class L659 {
 			return false;
 		}
 		int curNum = 0, preNum = Integer.MIN_VALUE;
-		// ³Ì¤jchain¥u·|¨ì3ªø¡A©Ò¥H³Ğ¥ß3­ÓÅÜ¼Æ§Y¥i
+		// æœ€å¤§chainåªæœƒåˆ°3é•·ï¼Œæ‰€ä»¥å‰µç«‹3å€‹è®Šæ•¸å³å¯
 		int curEndL1 = 0, curEndL2 = 0, curEndL3 = 0;
 		int preEndL1 = 0, preEndL2 = 0, preEndL3 = 0;
 		int m = nums.length;
@@ -32,33 +32,33 @@ public class L659 {
 				cnt++;
 			}
 			if (preNum + 1 != curNum) {
-				// ­«·s­pºâ¶}ÀY
+				// é‡æ–°è¨ˆç®—é–‹é ­
 				if (preEndL1 != 0 || preEndL2 != 0) {
-					// ¦pªG­«·s­pºâ°_©l¡AÁÙ¦³¥ı«eªº¼Æ¶q³Ñ¾l¡A«h¥Nªí¦³¼Æ¦r¨S¤Ç°t§¹¦¨
+					// å¦‚æœé‡æ–°è¨ˆç®—èµ·å§‹ï¼Œé‚„æœ‰å…ˆå‰çš„æ•¸é‡å‰©é¤˜ï¼Œå‰‡ä»£è¡¨æœ‰æ•¸å­—æ²’åŒ¹é…å®Œæˆ
 					return false;
 				}
 				curEndL1 = cnt;
 				curEndL2 = curEndL3 = 0;
 			} else {
 				if (cnt < preEndL1 + preEndL2) {
-					// ¥ı«eªº³Ñ¾l¶q¤j©ó¤U¤@¶¥¬q©Ò»İ­nªº¶q
+					// å…ˆå‰çš„å‰©é¤˜é‡å¤§æ–¼ä¸‹ä¸€éšæ®µæ‰€éœ€è¦çš„é‡
 					// ex.4,4,4,5
-					// ³o¼Ë´N¥Nªí¦³2­Ó4µLªk°t¹ï¦¨¥\
+					// é€™æ¨£å°±ä»£è¡¨æœ‰2å€‹4ç„¡æ³•é…å°æˆåŠŸ
 					return false;
 				}
-				// ±N¥ı«eªºchain©¹«á²¾¨ì¥Ø«eªºchain
+				// å°‡å…ˆå‰çš„chainå¾€å¾Œç§»åˆ°ç›®å‰çš„chain
 				curEndL2 = preEndL1;
 				curEndL3 = preEndL2;
 
-				// ±N³Ñ¾l¶q²Ö­p¨ì¥Ø«echain§À¤Ú
+				// å°‡å‰©é¤˜é‡ç´¯è¨ˆåˆ°ç›®å‰chainå°¾å·´
 				int residual = cnt - preEndL1 - preEndL2;
 				int numToExtendOldLongChain = Math.min(preEndL3, residual);
 				curEndL3 += numToExtendOldLongChain;
 
-				// ­«·s­pºâL1
+				// é‡æ–°è¨ˆç®—L1
 				curEndL1 = Math.max(0, residual - numToExtendOldLongChain);
 			}
-			// ¼È¦s¥ı«eªºª¬ºA
+			// æš«å­˜å…ˆå‰çš„ç‹€æ…‹
 			preNum = curNum;
 			preEndL1 = curEndL1;
 			preEndL2 = curEndL2;

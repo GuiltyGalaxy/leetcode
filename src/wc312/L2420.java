@@ -20,7 +20,7 @@ public class L2420 {
 		int[] dp2 = new int[n + 1];
 		Arrays.fill(dp2, 1);
 		List<Integer> ans = new ArrayList<>();
-		// ­pºâ³Ì¤j³sÄò
+		// è¨ˆç®—æœ€å¤§é€£çºŒ
 		for (int i = 1; i < n; i++) {
 			if (a[i - 1] >= a[i]) {
 				dp1[i] = dp1[i - 1] + 1;
@@ -32,7 +32,7 @@ public class L2420 {
 				dp2[i] = dp2[i + 1] + 1;
 			}
 		}
-		// ¦pªG³Ì¤j³sÄò¤j©ók«h¥Nªí²Å¦X
+		// å¦‚æœæœ€å¤§é€£çºŒå¤§æ–¼kå‰‡ä»£è¡¨ç¬¦åˆ
 		for (int i = k; i < n - k; i++) {
 			if (dp1[i - 1] >= k && dp2[i + 1] >= k) {
 				ans.add(i);

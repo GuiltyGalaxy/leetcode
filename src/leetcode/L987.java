@@ -15,19 +15,19 @@ public class L987 {
 	List<int[]> list = new ArrayList<>();
 
 	public List<List<Integer>> verticalTraversal(TreeNode root) {
-		// µ¹¸`ÂI®y¼Ğ½s¸¹
+		// çµ¦ç¯€é»åº§æ¨™ç·¨è™Ÿ
 		preorder(root, 0, 0);
-		// ¨Ì·Ó¸`ÂI±Æ§Ç
+		// ä¾ç…§ç¯€é»æ’åº
 		Collections.sort(list, (a, b) -> {
-			// y¤£¦P¤pªº¦b«e­±
+			// yä¸åŒå°çš„åœ¨å‰é¢
 			if (a[2] != b[2]) {
 				return a[2] - b[2];
 			}
-			// x¤£¦P¤pªº¦b«e­±
+			// xä¸åŒå°çš„åœ¨å‰é¢
 			if (a[1] != b[1]) {
 				return a[1] - b[1];
 			}
-			// x¬Û¦P­È¤pªº¦b«e­±
+			// xç›¸åŒå€¼å°çš„åœ¨å‰é¢
 			return a[0] - b[0];
 		});
 
@@ -36,7 +36,7 @@ public class L987 {
 		for (int[] node : list) {
 			int row = node[2];
 			int value = node[0];
-			// row´«¦æ
+			// rowæ›è¡Œ
 			if (row != prerow) {
 				ans.add(new ArrayList<>());
 				prerow = row;

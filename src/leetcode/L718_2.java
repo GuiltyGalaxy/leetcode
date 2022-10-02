@@ -6,7 +6,7 @@ public class L718_2 {
 	}
 
 	/**
-	 * DP¸Ñªk¡AO(m*n)¦ý¤ñ¸û¦nÀ´
+	 * DPè§£æ³•ï¼ŒO(m*n)ä½†æ¯”è¼ƒå¥½æ‡‚
 	 */
 	public int findLength(int[] nums1, int[] nums2) {
 		if (nums1 == null || nums2 == null)

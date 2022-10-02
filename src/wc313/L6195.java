@@ -13,25 +13,25 @@ public class L6195 {
 
 	public int deleteString(String s) {
 		int n = s.length();
-		// LCS·§©À
-		// lcs[i][j]¥Nªí±qi¶}©l»Pj¶}©l³Ì¤j¬Û¦P¦r¦êªø«×
-		// "babab"©ólcs[0][2]·|¬°3
-		// ¦][0] = "bab" [2] = "bab"
-		// "abcab"©ólcs[0][3]·|¬°2
-		// ¦][0] = "ab" [3] = "ab"
+		// LCSæ¦‚å¿µ
+		// lcs[i][j]ä»£è¡¨å¾žié–‹å§‹èˆ‡jé–‹å§‹æœ€å¤§ç›¸åŒå­—ä¸²é•·åº¦
+		// "babab"æ–¼lcs[0][2]æœƒç‚º3
+		// å› [0] = "bab" [2] = "bab"
+		// "abcab"æ–¼lcs[0][3]æœƒç‚º2
+		// å› [0] = "ab" [3] = "ab"
 		int[][] lcs = new int[n + 1][n + 1];
 		int[] dp = new int[n];
-		// ¨C¦¸ªºdp³£­n±q1¶}©l¡A¦]§A¤£ª¾«e­±¬O§_¦³³sÄò¥i®ø°£ªº¼Æ¥Ø
+		// æ¯æ¬¡çš„dpéƒ½è¦å¾ž1é–‹å§‹ï¼Œå› ä½ ä¸çŸ¥å‰é¢æ˜¯å¦æœ‰é€£çºŒå¯æ¶ˆé™¤çš„æ•¸ç›®
 		Arrays.fill(dp, 1);
 		for (int i = n - 1; i >= 0; --i) {
 			char si = s.charAt(i);
 			for (int j = i + 1; j < n; ++j) {
 				char sj = s.charAt(j);
-				// §ó·s·í«e³Ì¤jLCSªø«×
+				// æ›´æ–°ç•¶å‰æœ€å¤§LCSé•·åº¦
 				if (si == sj) {
 					lcs[i][j] = lcs[i + 1][j + 1] + 1;
 				}
-				// LCSªø«×>=·í«e¶ZÂ÷«h¥Nªí¥i¥H³Q®ø¥h
+				// LCSé•·åº¦>=ç•¶å‰è·é›¢å‰‡ä»£è¡¨å¯ä»¥è¢«æ¶ˆåŽ»
 				if (lcs[i][j] >= j - i) {
 					dp[i] = Math.max(dp[i], dp[j] + 1);
 				}

@@ -19,7 +19,7 @@ public class L5 {
 		char[] str = s.toCharArray();
 		int n = str.length;
 		// n / 2 => n >> 1
-		// ±q¤¤¶¡¶}©l§ä
+		// å¾ä¸­é–“é–‹å§‹æ‰¾
 		expandCenter(str, n >> 1, MID);
 		return new String(str, begin, maxLen);
 	}
@@ -29,7 +29,7 @@ public class L5 {
 		int i = idx - 1;
 		int j = idx + 1;
 
-		// ºJ°£±¼°_©l¬Û¦Pªº¦r
+		// æ’‡é™¤æ‰èµ·å§‹ç›¸åŒçš„å­—
 		// ex. "naaaaaaan"
 		//      ^   ^   ^
 		//      |   |   |
@@ -39,7 +39,7 @@ public class L5 {
 		while (j < len && str[j] == str[idx])
 			j++;
 
-		// ­pºâ³Ì¤j¦^¤åªø«×
+		// è¨ˆç®—æœ€å¤§å›æ–‡é•·åº¦
 		int left = i;
 		int right = j;
 		while (left >= 0 && right < len && str[left] == str[right]) {
@@ -47,13 +47,13 @@ public class L5 {
 			right++;
 		}
 
-		// ¦pªG¤ñ·í«e³Ì¤j¦^¤å¤j«h°O¿ı
+		// å¦‚æœæ¯”ç•¶å‰æœ€å¤§å›æ–‡å¤§å‰‡è¨˜éŒ„
 		if (right - left - 1 > maxLen) {
 			begin = left + 1;
 			maxLen = right - left - 1;
 		}
 
-		// ³Ñ¤Uªºªø«×¦pªG¤ñ¥Ø«emaxLen¤j¦AÄ~Äò©¹¥ª¥k§ä
+		// å‰©ä¸‹çš„é•·åº¦å¦‚æœæ¯”ç›®å‰maxLenå¤§å†ç¹¼çºŒå¾€å·¦å³æ‰¾
 		if (((i + 1) << 1) > maxLen && direction <= MID)
 			expandCenter(str, i, LEFT);
 

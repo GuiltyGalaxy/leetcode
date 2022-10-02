@@ -11,15 +11,15 @@ public class L6173 {
 
 	public int maximumRows(int[][] mat, int cols) {
 		int max = 0;
-		// ©Ò¦³¥i¯à
-		// ³Ì¤j­È­è¦n¬° 1 << mat[0].length
+		// æ‰€æœ‰å¯èƒ½
+		// æœ€å¤§å€¼å‰›å¥½ç‚º 1 << mat[0].length
 		for (int mask = 0; mask < (1 << mat[0].length); mask++) {
-			// bit¼Æ¶q¥Nªí¿ï«h¼Æ¶q¡A¤£¬Û¦P«h¸õ¹L
+			// bitæ•¸é‡ä»£è¡¨é¸å‰‡æ•¸é‡ï¼Œä¸ç›¸åŒå‰‡è·³éŽ
 			if (Integer.bitCount(mask) != cols) {
 				continue;
 			}
 			int c = 0;
-			// ­pºâ¸Ómask¤U¥i¥H¿ï¨ìªºrow¼Æ¶q
+			// è¨ˆç®—è©²maskä¸‹å¯ä»¥é¸åˆ°çš„rowæ•¸é‡
 			for (int i = 0; i < mat.length; i++) {
 				boolean take = true;
 				for (int j = 0; j < mat[0].length; j++) {

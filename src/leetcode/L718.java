@@ -24,14 +24,14 @@ public class L718 {
 		int len1 = nums1.length;
 		int len2 = nums2.length;
 
-		// ªøªºÂ\¦b«e­±
+		// é•·çš„æ“ºåœ¨å‰é¢
 		if (len2 > len1) {
 			return findLength(nums2, nums1);
 		}
 
 		int min = Math.min(len1, len2);
 
-		// hash¦]¤l
+		// hashå› å­
 		long[] power = new long[len1];
 		power[0] = 1;
 		for (int i = 1; i < len1; ++i) {
@@ -43,12 +43,12 @@ public class L718 {
 		while (left < right) {
 			int mid = left + (right - left) / 2;
 			if (check(mid, nums1, nums2, power)) {
-				// ¥Hmid¬°¤À¬É¦³§ä¨ì¬Û¦Phash
-				// ¥Nªí¥i¥H±Nleft¬É©w¦¨mid
+				// ä»¥midç‚ºåˆ†ç•Œæœ‰æ‰¾åˆ°ç›¸åŒhash
+				// ä»£è¡¨å¯ä»¥å°‡leftç•Œå®šæˆmid
 				left = mid + 1;
 			} else {
-				// ¥Hmid¬°¤À¬É¨S¦³§ä¨ì¬Û¦Phash
-				// «h­«·s¬É©wright
+				// ä»¥midç‚ºåˆ†ç•Œæ²’æœ‰æ‰¾åˆ°ç›¸åŒhash
+				// å‰‡é‡æ–°ç•Œå®šright
 				right = mid;
 			}
 		}
@@ -59,8 +59,8 @@ public class L718 {
 	}
 
 	/**
-	 * ÀË¬d¥Hlen¬°¤À¬Éªº¥ª¥khash­È¬O§_¬Ûµ¥<br>
-	 * ¨Ï¥ÎRolling Hashºtºâªk
+	 * æª¢æŸ¥ä»¥lenç‚ºåˆ†ç•Œçš„å·¦å³hashå€¼æ˜¯å¦ç›¸ç­‰<br>
+	 * ä½¿ç”¨Rolling Hashæ¼”ç®—æ³•
 	 */
 	private boolean check(int len, int[] nums1, int[] nums2, long[] power) {
 
@@ -72,8 +72,8 @@ public class L718 {
 		int len2 = nums2.length;
 
 		Set<Long> set = new HashSet<>();
-		// ¥ıºânums2¬O¦]¬°¥Lªø«×¤@©w¤ñ1¤p
-		// ­pºânums2ªº¨C­Ó²Õ¦Xhash­È
+		// å…ˆç®—nums2æ˜¯å› ç‚ºä»–é•·åº¦ä¸€å®šæ¯”1å°
+		// è¨ˆç®—nums2çš„æ¯å€‹çµ„åˆhashå€¼
 		long hash1 = 0;
 		for (int i = 0; i < len; ++i) {
 			hash1 = (hash1 * PRIME + nums2[i] + 1);
@@ -87,12 +87,12 @@ public class L718 {
 			hash1 = (hash1 * PRIME + num2);
 			set.add(hash1);
 		}
-		// ­pºânums1 hash
+		// è¨ˆç®—nums1 hash
 		long hash2 = 0;
 		for (int i = 0; i < len; ++i) {
 			hash2 = (hash2 * PRIME + nums1[i] + 1);
 		}
-		// ³o­Ó¬Ûµ¥¥Nªí¦r¦ê§¹¥ş¬Û²Å
+		// é€™å€‹ç›¸ç­‰ä»£è¡¨å­—ä¸²å®Œå…¨ç›¸ç¬¦
 		if (set.contains(hash2)) {
 			return true;
 		}

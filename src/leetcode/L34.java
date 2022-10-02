@@ -15,12 +15,12 @@ public class L34 {
 		if (L <= R) {
 			int M = L + (R - L) / 2;
 			if (nums[M] == target) {
-				// ¦V¥k¹Gªñ
+				// å‘å³é€¼è¿‘
 				if (ans[0] > M) {
 					ans[0] = M;
 					binarySearch(ans, nums, target, L, M - 1);
 				}
-				// ¦V¥ª¹Gªñ
+				// å‘å·¦é€¼è¿‘
 				if (ans[1] < M) {
 					ans[1] = M;
 					binarySearch(ans, nums, target, M + 1, R);

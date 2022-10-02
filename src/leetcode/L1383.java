@@ -15,24 +15,24 @@ public class L1383 {
 
 	public int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
 		Queue<Integer> q = new PriorityQueue<Integer>();
-		// «ö·Óefficiency¥Ñ°ª¦Ü§C±Æ§Ç(efficiency¬Û¦P®É¡A¤pªºspeed¦b«e)
-		// ³o¦a¤è¬O­«ÂI¡A¦]ÃD¥Ø­pºâ¤è¦¡¬O®³³Ì¤p®Ä²v¥h­pºâ
-		// ©Ò¥H³o¼Ë±Æ§Ç¥i¥H¨Ï³g°ıºtºâªk¦¨¥ß
-		// ¥u­n¤£Â_©¹¤U¿ïªº¦P®É­pºâ¤@¦¸·í«e³Ì¤j®Ä²v§Y¥i
-		// *¥Î¤º«Øsort¤£ª¾¬°¤°»ò¤ñ¸ûºC*
+		// æŒ‰ç…§efficiencyç”±é«˜è‡³ä½æ’åº(efficiencyç›¸åŒæ™‚ï¼Œå°çš„speedåœ¨å‰)
+		// é€™åœ°æ–¹æ˜¯é‡é»ï¼Œå› é¡Œç›®è¨ˆç®—æ–¹å¼æ˜¯æ‹¿æœ€å°æ•ˆç‡å»è¨ˆç®—
+		// æ‰€ä»¥é€™æ¨£æ’åºå¯ä»¥ä½¿è²ªå©ªæ¼”ç®—æ³•æˆç«‹
+		// åªè¦ä¸æ–·å¾€ä¸‹é¸çš„åŒæ™‚è¨ˆç®—ä¸€æ¬¡ç•¶å‰æœ€å¤§æ•ˆç‡å³å¯
+		// *ç”¨å…§å»ºsortä¸çŸ¥ç‚ºä»€éº¼æ¯”è¼ƒæ…¢*
 		mergeSort(efficiency, speed, 0, n);
 		long sum = 0;
 		long max = 0;
 		for (int i = 0; i < n; i++) {
-			// ·íq¤¤ÁÙ¥¼¿ï¨ì«ü©w¼Æ¶qk®É¡Aª½±µ·s¼W¦Üq¤¤
+			// ç•¶qä¸­é‚„æœªé¸åˆ°æŒ‡å®šæ•¸é‡kæ™‚ï¼Œç›´æ¥æ–°å¢è‡³qä¸­
 			if (q.size() < k) {
 				q.add(speed[i]);
 				sum += speed[i];
 				long t = sum * efficiency[i];
 				max = Long.max(max, t);
 			}
-			// ¿ïº¡ªº±¡ªp¤U³Ì¤pspeed®³¥X¨Ó»P²{¦bspeed¤ñ
-			// ²{¦bspeed¤ñ¸û¤j®É«h´À´«±¼¨Ã­«·s­pºâ·í«e®Ä¯à
+			// é¸æ»¿çš„æƒ…æ³ä¸‹æœ€å°speedæ‹¿å‡ºä¾†èˆ‡ç¾åœ¨speedæ¯”
+			// ç¾åœ¨speedæ¯”è¼ƒå¤§æ™‚å‰‡æ›¿æ›æ‰ä¸¦é‡æ–°è¨ˆç®—ç•¶å‰æ•ˆèƒ½
 			else if (q.peek() < speed[i]) {
 				sum -= q.remove();
 				q.add(speed[i]);

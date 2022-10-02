@@ -13,16 +13,16 @@ public class L2398 {
 
 	public int maximumRobots(int[] chargeTimes, int[] runningCosts, long budget) {
 		int ans = 0;
-		// ¹w³]¥ı¿ï¤@¥x¾÷¾¹¤H
+		// é è¨­å…ˆé¸ä¸€å°æ©Ÿå™¨äºº
 		int j = -1;
 		long s = 0;
-		// ±N¥R¹q³Ì¤jªº¾÷¾¹¤H³]¬°³ÌÀu¥ı²¾°£
+		// å°‡å……é›»æœ€å¤§çš„æ©Ÿå™¨äººè¨­ç‚ºæœ€å„ªå…ˆç§»é™¤
 		PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o2[0], o1[0]));
 		for (int i = 0; i < runningCosts.length; i++) {
 			s += runningCosts[i];
-			// ¥[¤J·s¾÷¾¹¤H
+			// åŠ å…¥æ–°æ©Ÿå™¨äºº
 			pq.offer(new int[] { chargeTimes[i], i });
-			// ¶W¹L¹wºâªº±¡ªp¤U²¾°£³ÌÀu¥ı¾÷¾¹¤H
+			// è¶…éé ç®—çš„æƒ…æ³ä¸‹ç§»é™¤æœ€å„ªå…ˆæ©Ÿå™¨äºº
 			while (s * (i - j) + removeStale(pq, j) > budget) {
 				s -= runningCosts[++j];
 			}

@@ -12,13 +12,13 @@ public class L990 {
 	int[] uf = new int[26];
 
 	public boolean equationsPossible(String[] equations) {
-		// «Ø¥ßªì©l¦V¶q¹Ï
+		// å»ºç«‹åˆå§‹å‘é‡åœ–
 		// uf[0] = 0 -- a=a
 		// uf[1] = 1 -- b=b
 		for (int i = 0; i < 26; ++i) {
 			uf[i] = i;
 		}
-		// ­pºâ¬Ûµ¥ªº¨Ã§ó·s¦V¶q¹Ï
+		// è¨ˆç®—ç›¸ç­‰çš„ä¸¦æ›´æ–°å‘é‡åœ–
 		for (String e : equations) {
 			if (e.charAt(1) == '=') {
 				int a = find(e.charAt(0) - 'a');
@@ -34,7 +34,7 @@ public class L990 {
 		return true;
 	}
 
-	// ´M§ä¥Ø«euf[x]©Ò«ü¦Vªºx
+	// å°‹æ‰¾ç›®å‰uf[x]æ‰€æŒ‡å‘çš„x
 	public int find(int x) {
 		if (x != uf[x]) {
 			uf[x] = find(uf[x]);

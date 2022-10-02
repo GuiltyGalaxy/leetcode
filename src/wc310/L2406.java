@@ -13,14 +13,14 @@ public class L2406 {
 	}
 
 	public int minGroups(int[][] intervals) {
-		// ���D�η|ĳ�ǥe�Ϊ�����Q�A[0]�_�l�ɶ��P[1]�����ɶ�
-		// �p��̤j�ݨϥδX�ӷ|ĳ�ǥi�H���Ҧ��H���Ĭ�}��|
-		// �װ_�l�ɶ��Ƨ�
+		// 此題用會議室占用的思維想，[0]起始時間與[1]結束時間
+		// 計算最大需使用幾個會議室可以讓所有人不衝突開到會
+		// 案起始時間排序
 		Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
-		// �u���W�C�̫e���������ɶ��A�]�ֵ̧������@�w�i�H���Q����L�H��
+		// 優先柱列最前面為結束時間，因最快結束的一定可以先被給其他人用
 		PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
 		for (int[] interval : intervals) {
-			// ������ƮɡA�ˬd�O�_���w�������|ĳ�i�ϥΡA�i�H�ϥΫh�簣����ϥΪ�
+			// 當有資料時，檢查是否有已結束之會議可使用，可以使用則剔除原先使用者
 			if (!pq.isEmpty() && pq.peek()[1] < interval[0]) {
 				pq.poll();
 			}

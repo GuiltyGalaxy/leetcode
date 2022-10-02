@@ -1,44 +1,35 @@
 package leetcode;
 
-import java.util.Arrays;
-
 public class L1155 {
 	public static void main(String[] args) {
 		new L1155();
 	}
 
 	L1155() {
+		numRollsToTarget(2, 6, 7);
 	}
 
-	static final int MOD = 1000000007;
+	static final int MOD = 1_000_000_007;
 
-	public int numRollsToTarget(int n, int k, int target) {
-		if (n * k < target || target < n)
-			return 0;
-		if (n == 1)
-			return 1;
-
-		int[] cache1 = new int[target + 1];
-		int[] cache2 = new int[target + 1];
-		int[] cacheT;
-		Arrays.fill(cache1, 1, Math.min(k, target) + 1, 1);
-		for (int i = 2; i <= n; i++) {
-			int stop = Math.min(target, i + k - 1);
-			int sum = 0;
-			for (int j = i; j <= stop; j++) {
-				cache2[j] = (sum = (sum + cache1[j - 1]) % MOD);
+	// O(d*f*t)
+	public int numRollsToTarget(int d, int f, int target) {
+		int[][] dp = new int[d + 1][target + 1];
+		dp[0][0] = 1;
+		for (int i = 1; i <= d; i++) {
+			// 計算當前n可以達到target的數量
+			for (int j = 0; j <= target; j++) {
+				// 只需累加前f個即可
+				for (int k = 1; k <= f; k++) {
+					if (j >= k) {
+						// 可達數量為上一個循環的結果
+						dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % MOD;
+					} else {
+						// 大於target就不再計算
+						break;
+					}
+				}
 			}
-			for (int j = stop, z = Math.min(target, i * k); j < z; j++) {
-				sum = (sum - cache1[j - k] + cache1[j]) % MOD;
-				cache2[j + 1] = sum < 0 ? sum + MOD : sum;
-			}
-			cacheT = cache1;
-			cache1 = cache2;
-			cache2 = cacheT;
 		}
-		return cache1[target];
+		return dp[d][target];
 	}
 }
-
-
-

@@ -1,4 +1,4 @@
-package myCalendarThree;
+package leetcode.myCalendarThree;
 
 public class MyCalendarThree2 {
 	public static void main(String[] args) {

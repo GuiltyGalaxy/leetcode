@@ -1,4 +1,4 @@
-package myCalendarThree;
+package leetcode.myCalendarThree;
 
 import java.util.TreeMap;
 

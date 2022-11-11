@@ -1,5 +1,5 @@
-# leetcode
-leetcode 學習歷程
+# daily
+daily 學習歷程
 
 每日解題
 

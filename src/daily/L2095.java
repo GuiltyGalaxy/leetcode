@@ -1,5 +1,7 @@
 package daily;
 
+import tool.ListNode;
+
 public class L2095 {
 	public static void main(String[] args) {
 		new L2095();

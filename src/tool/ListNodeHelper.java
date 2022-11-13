@@ -1,4 +1,4 @@
-package daily;
+package tool;
 
 public class ListNodeHelper {
 	public static ListNode create(int[] is) {

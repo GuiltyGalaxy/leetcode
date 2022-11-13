@@ -1,4 +1,4 @@
-package daily;
+package tool;
 
 import java.util.LinkedList;
 import java.util.Queue;

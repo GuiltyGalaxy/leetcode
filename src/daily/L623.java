@@ -1,5 +1,7 @@
 package daily;
 
+import tool.TreeNode;
+
 public class L623 {
 
 	public static void main(String[] args) {

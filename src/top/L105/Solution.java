@@ -1,6 +1,6 @@
 package top.L105;
 
-import daily.TreeNode;
+import tool.TreeNode;
 
 class Solution {
 

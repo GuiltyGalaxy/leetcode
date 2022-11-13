@@ -1,5 +1,7 @@
 package daily;
 
+import tool.TreeNode;
+
 public class L112 {
 
 	public boolean hasPathSum(TreeNode root, int targetSum) {

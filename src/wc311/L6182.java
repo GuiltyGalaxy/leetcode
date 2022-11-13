@@ -1,6 +1,6 @@
 package wc311;
 
-import daily.TreeNode;
+import tool.TreeNode;
 
 public class L6182 {
 	public static void main(String[] args) {

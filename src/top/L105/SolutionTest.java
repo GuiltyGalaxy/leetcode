@@ -1,6 +1,6 @@
 package top.L105;
 
-import daily.TreeNode;
+import tool.TreeNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,7 @@
 package daily;
 
+import tool.TreeNode;
+
 public class L437 {
 	public int pathSum(TreeNode root, int targetSum) {
 		if (root == null) {

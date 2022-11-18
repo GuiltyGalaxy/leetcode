@@ -1,17 +1,38 @@
 package top.L2;
 
+import tool.ListNode;
+
 public class Solution {
-    public int lengthOfLongestSubstring(String s) {
-        int result = 0;
-        //直接開到ascii size
-        int[] cache = new int[256];
-        for (int R = 0, L = 0; R < s.length(); R++) {
-            //字母有在cache中則更新L，確保L到R之間都無重複字
-            L = (cache[s.charAt(R)] > 0) ? Math.max(L, cache[s.charAt(R)]) : L;
-            //紀錄字母位子
-            cache[s.charAt(R)] = R + 1;
-            result = Math.max(result, R - L + 1);
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        //前面插入一個空node比較好算
+        ListNode ans = new ListNode();
+        ListNode tmp = ans;
+        int crray = 0;
+        while (l1 != null || l2 != null) {
+
+            int val_1 = 0;
+            if (l1 != null) {
+                val_1 = l1.val;
+                l1 = l1.next;
+            }
+            int val_2 = 0;
+            if (l2 != null) {
+                val_2 = l2.val;
+                l2 = l2.next;
+            }
+
+            int sum = val_1 + val_2 + crray;
+            crray = sum / 10;
+            sum %= 10;
+            ans.next = new ListNode(sum);
+            ans = ans.next;
         }
-        return result;
+
+        if (crray == 1) {
+            ans.next = new ListNode(1);
+        }
+
+        //跳過空node
+        return tmp.next;
     }
 }

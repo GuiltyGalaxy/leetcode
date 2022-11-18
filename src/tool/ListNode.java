@@ -16,4 +16,27 @@ public class ListNode {
         this.val = val;
         this.next = next;
     }
+
+    public static ListNode create(int... val) {
+        ListNode list = new ListNode();
+        ListNode tmp = list;
+        for (int v:val){
+            tmp.next = new ListNode(v);
+            tmp = tmp.next;
+        }
+        return list.next;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        ListNode tmp = this;
+
+        while (tmp != null) {
+            sb.append(tmp.val);
+            tmp = tmp.next;
+        }
+
+        return sb.toString();
+    }
 }

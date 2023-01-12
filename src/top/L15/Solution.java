@@ -7,35 +7,38 @@ import java.util.List;
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
-        List<List<Integer>> res = new LinkedList<>();
+        List<List<Integer>> ans = new LinkedList<>();
+        int n = nums.length;
         //固定一數
-        for (int i = 0; i < nums.length - 2; i++) {
-            //nums[i] != nums[i - 1]排除連續
-            if (i == 0 || nums[i] != nums[i - 1]) {
-                //指向最小數字
-                int j = i + 1;
-                //指向最大數字
-                int k = nums.length - 1;
-                int target = -nums[i];
-                while (j < k) {
-                    if (nums[j] + nums[k] == target) {
-                        //符合目標加入結果
-                        res.add(Arrays.asList(nums[i], nums[j], nums[k]));
-                        //排除連續
-                        while (j < k && nums[j] == nums[j + 1]) j++;
-                        while (j < k && nums[k] == nums[k - 1]) k--;
-                        j++;
-                        k--;
-                    } else if (nums[j] + nums[k] < target) {
-                        //比目標小
-                        ++j;
-                    } else {
-                        //比目標大
-                        --k;
-                    }
+        for (int i = 0; i < n - 2; i++) {
+            if (i != 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int L = i + 1;
+            int R = n - 1;
+            //設定目標
+            int target = -nums[i];
+            while (L < R) {
+                if (nums[L] + nums[R] == target) {
+                    ans.add(Arrays.asList(nums[i], nums[L], nums[R]));
+                    //排除連續
+                    while (L < R && nums[L] == nums[L + 1]) L++;
+                    while (L < R && nums[R] == nums[R - 1]) R--;
+                    L++;
+                    R--;
+                    continue;
+                }
+                if (nums[L] + nums[R] > target) {
+                    R--;
+                    continue;
+                }
+                if (nums[L] + nums[R] < target) {
+                    L++;
+                    continue;
                 }
             }
+
         }
-        return res;
+        return ans;
     }
 }

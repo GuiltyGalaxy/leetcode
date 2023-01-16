@@ -1,7 +1,5 @@
 package top.L128;
 
-import tool.TreeNode;
-
 import java.util.HashSet;
 
 class Solution {

@@ -1,42 +1,33 @@
 package top.L39;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 class Solution {
 
-    List<List<Integer>> ans = new ArrayList<>();
+    List<List<Integer>> result = new ArrayList<>();
 
-    public List<List<Integer>> combinationSum(int[] arr, int sum) {
-        Arrays.sort(arr);
-        helper(arr, sum, 0, new ArrayList<>());
-        return ans;
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        //存放當前集合的總數
+        List<Integer> current = new ArrayList<>();
+        combinationSumHelper(0, candidates, target, current);
+        return result;
     }
 
-    private void helper(int[] candidates, int target, int idx, List<Integer> cur) {
+    private void combinationSumHelper(int index, int[] candidates, int target, List<Integer> current) {
 
-        if (idx == candidates.length) {
+        if (target == 0) {
+            result.add(new ArrayList<>(current));
             return;
         }
+        //以當前idx尋找所有可能，包含自己
+        for (int i = index; i < candidates.length; i++) {
+            //選擇大於目標就不考慮了
+            if (candidates[i] > target) continue;
 
-        //符合目標值加入至ans
-        if (candidates[idx] == target) {
-            ArrayList<Integer> tmp = new ArrayList<>(cur);
-            tmp.add(candidates[idx]);
-            ans.add(tmp);
-            return;
+            current.add(candidates[i]);
+            combinationSumHelper(i, candidates, target - candidates[i], current);
+            current.remove(current.size() - 1);
         }
-
-        if (candidates[idx] > target) {
-            return;
-        }
-        //找下個idx可能性
-        helper(candidates, target, idx + 1, cur);
-
-        ArrayList<Integer> tmp = new ArrayList<>(cur);
-        tmp.add(candidates[idx]);
-        //同個idx尋找重複使用情況
-        helper(candidates, target - candidates[idx], idx, tmp);
     }
 }

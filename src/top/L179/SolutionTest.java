@@ -10,5 +10,9 @@ class SolutionTest {
         Assertions.assertEquals(solution.largestNumber(new int[]{3, 30, 34, 5, 9}), "9534330");
     }
 
-
+    @Test
+    public void case2() {
+        Solution solution = new Solution();
+        Assertions.assertEquals(solution.largestNumber(new int[]{0, 0, 0, 0, 0}), "0");
+    }
 }

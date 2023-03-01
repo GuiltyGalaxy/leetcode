@@ -6,30 +6,6 @@ class Solution {
     int[] root;
     int[] rank;
 
-    public int find(int x) {
-        if (x == root[x]) {
-            return x;
-        }
-        return root[x] = find(root[x]);
-    }
-
-    public void union(int x, int y) {
-        int rootX = find(x);
-        int rootY = find(y);
-        if (rootX != rootY) {
-            //合併的條件為rank較大小的合併至較大的
-            if (rank[rootX] > rank[rootY]) {
-                root[rootY] = rootX;
-            } else if (rank[rootX] < rank[rootY]) {
-                root[rootX] = rootY;
-            } else {
-                //相同情況則以x為主(給x,y其實都沒差)
-                root[rootY] = rootX;
-                rank[rootX] += 1;
-            }
-        }
-    }
-
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
 
         root = new int[accounts.size()];
@@ -76,4 +52,29 @@ class Solution {
 
         return result;
     }
+
+    private int find(int target) {
+        if (target == root[target]) {
+            return target;
+        }
+        return root[target] = find(root[target]);
+    }
+
+    private void union(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+        if (rootX != rootY) {
+            //合併的條件為rank較大小的合併至較大的
+            if (rank[rootX] > rank[rootY]) {
+                root[rootY] = rootX;
+            } else if (rank[rootX] < rank[rootY]) {
+                root[rootX] = rootY;
+            } else {
+                //相同情況則以x為主(給x,y其實都沒差)
+                root[rootY] = rootX;
+                rank[rootX] += 1;
+            }
+        }
+    }
+
 }

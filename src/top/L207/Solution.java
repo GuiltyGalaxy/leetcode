@@ -49,4 +49,44 @@ class Solution {
         //邊都可以完全移除代表拓譜排序成立
         return edgeCnt == 0;
     }
+
+    public boolean canFinish2(int numCourses, int[][] prerequisites) {
+
+        int n = prerequisites.length;
+        //紀錄已上過的課
+        boolean[] isLearn = new boolean[n];
+        int[] courses = new int[numCourses];
+
+        //計算目標課程數
+        //應有可能出現[0,3] [1,3]
+        //代表修3要修過0,1
+        for (int[] prerequisite : prerequisites) {
+            courses[prerequisite[1]]++;
+        }
+
+        boolean flag = true;
+
+        while (flag) {
+            flag = false;
+
+            for (int i = 0; i < n; i++) {
+                if (!isLearn[i]) {
+                    //當前要修的課前修堂數==0代表該課程可以學習
+                    if (courses[prerequisites[i][0]] == 0) {
+                        //將對應下一堂目標課所需前修堂數-1
+                        courses[prerequisites[i][1]]--;
+                        isLearn[i] = true;
+                        flag = true;
+                    }
+                }
+            }
+        }
+
+        //有任何課程有剩餘未修代表沒辦法全部修完
+        for (int i : courses) {
+            if (i != 0) return false;
+        }
+
+        return true;
+    }
 }

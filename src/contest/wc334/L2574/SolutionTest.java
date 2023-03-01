@@ -1,4 +1,4 @@
-package contest.wc334.L2570;
+package contest.wc334.L2574;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

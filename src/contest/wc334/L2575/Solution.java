@@ -1,4 +1,4 @@
-package contest.wc334.L2571;
+package contest.wc334.L2575;
 
 
 class Solution {

@@ -1,4 +1,4 @@
-package contest.wc334.L2570;
+package contest.wc334.L2574;
 
 class Solution {
     public int[] leftRigthDifference(int[] nums) {

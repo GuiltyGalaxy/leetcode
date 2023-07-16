@@ -3,38 +3,30 @@ package top.L105;
 import tool.TreeNode;
 
 class Solution {
+    private int inorderIndex = 0;
+    private int preorderIndex = 0;
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        return create(0, 0, inorder.length, preorder, inorder);
+        return create(preorder, inorder, Integer.MAX_VALUE);
     }
 
-    private TreeNode create(int preStart, int inStart, int inEnd, int[] preorder, int[] inorder) {
+    public TreeNode create(int[] preorder, int[] inorder, int stop) {
 
-        //邊緣檢測
-        if (preStart > preorder.length - 1 || inStart > inEnd) {
+        if (preorderIndex >= preorder.length) {
             return null;
         }
 
-        //preStart為當前的root的值
-        TreeNode root = new TreeNode(preorder[preStart]);
-        //於inorder尋找當前preorder[preStart]的index
-        //此index特性為
-        //於inorder[index]左邊元素一定在preorder[preStart]的left
-        //於inorder[index]右邊元素一定在preorder[preStart]的right
-        int inIndex = 0;
-        for (int i = inStart; i <= inEnd; i++) {
-            if (inorder[i] == preorder[preStart]) {
-                inIndex = i;
-                break;
-            }
+        // 當遇到上個preorder節點為目前inorder的值
+        // 代表要切分，所以inorderIndex++返回
+        if (inorder[inorderIndex] == stop) {
+            inorderIndex++;
+            return null;
         }
 
-        //藉由inIndex去區分left right的分割點
-        //因preorder的關系 preStart + 1 會為下個left的頂點
-        //preStart + inIndex - inStart + 1的算法為，(inIndex - inStart)為offer，加上該offer後+1就為right值
-        root.left = create(preStart + 1, inStart, inIndex - 1, preorder, inorder);
-        root.right = create(preStart + inIndex - inStart + 1, inIndex + 1, inEnd, preorder, inorder);
+        TreeNode n = new TreeNode(preorder[preorderIndex++]);
+        n.left = create(preorder, inorder, n.val);
+        n.right = create(preorder, inorder, stop);
 
-        return root;
+        return n;
     }
 }

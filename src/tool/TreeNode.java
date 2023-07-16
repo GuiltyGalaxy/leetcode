@@ -23,6 +23,10 @@ public class TreeNode {
 
     public static TreeNode createTree(Integer... nums) {
 
+        if (nums.length == 0) {
+            return new TreeNode();
+        }
+
         Queue<TreeNode> queue = new LinkedList<>();
         TreeNode root = new TreeNode(nums[0]);
         queue.add(root);
@@ -34,6 +38,7 @@ public class TreeNode {
             Integer leftNum = nums[i++];
             if (leftNum != null) {
                 TreeNode left = new TreeNode(leftNum);
+                assert parent != null;
                 parent.left = left;
                 queue.add(left);
             }
@@ -42,6 +47,7 @@ public class TreeNode {
                 Integer rightNum = nums[i++];
                 if (rightNum != null) {
                     TreeNode right = new TreeNode(rightNum);
+                    assert parent != null;
                     parent.right = right;
                     queue.add(right);
                 }

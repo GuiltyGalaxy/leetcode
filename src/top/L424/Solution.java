@@ -12,12 +12,13 @@ class Solution {
 
         for (int end = 0; end < len; end++) {
             int curLen = end - start + 1;
-            //累加目前window內count
+            // 累加目前window內count
             count[s.charAt(end)]++;
-            //maxCount用來記錄目前window中重複次數最多的字母
+            // maxCount用來記錄目前window中重複次數最多的字母
             maxCount = Math.max(maxCount, count[s.charAt(end)]);
-            //如果window長度減去maxCount大於k，代表window目前不符合條件
-            //推移start到符合條件為止
+            // 如果window長度減去maxCount大於k
+            // 代表該window中就算變換了k次也不符合條件
+            // 所以推移start到符合條件為止
             while (curLen - maxCount > k) {
                 count[s.charAt(start)]--;
                 start++;

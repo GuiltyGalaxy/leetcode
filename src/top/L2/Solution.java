@@ -3,36 +3,26 @@ package top.L2;
 import tool.ListNode;
 
 public class Solution {
+    int carry = 0;
+
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        //前面插入一個空node比較好算
-        ListNode ans = new ListNode();
-        ListNode tmp = ans;
-        int crray = 0;
-        while (l1 != null || l2 != null) {
 
-            int val_1 = 0;
-            if (l1 != null) {
-                val_1 = l1.val;
-                l1 = l1.next;
-            }
-            int val_2 = 0;
-            if (l2 != null) {
-                val_2 = l2.val;
-                l2 = l2.next;
-            }
-
-            int sum = val_1 + val_2 + crray;
-            crray = sum / 10;
-            sum %= 10;
-            ans.next = new ListNode(sum);
-            ans = ans.next;
+        // 邊緣檢測
+        // carry存在時還是要把新節點加上去
+        if (l1 == null && l2 == null && carry == 0) {
+            return null;
         }
 
-        if (crray == 1) {
-            ans.next = new ListNode(1);
-        }
+        int val1 = l1 == null ? 0 : l1.val;
+        int val2 = l2 == null ? 0 : l2.val;
 
-        //跳過空node
-        return tmp.next;
+        int sum = val1 + val2 + carry;
+        carry = sum / 10;
+
+        l1 = l1 == null ? null : l1.next;
+        l2 = l2 == null ? null : l2.next;
+
+        // 往下個節點計算
+        return new ListNode(sum % 10, addTwoNumbers(l1, l2));
     }
 }

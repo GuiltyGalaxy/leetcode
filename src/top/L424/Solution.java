@@ -14,7 +14,7 @@ class Solution {
             int curLen = end - start + 1;
             //累加目前window內count
             count[s.charAt(end)]++;
-            //判斷目前加的這個字母是否有超過maxCount
+            //maxCount用來記錄目前window中重複次數最多的字母
             maxCount = Math.max(maxCount, count[s.charAt(end)]);
             //如果window長度減去maxCount大於k，代表window目前不符合條件
             //推移start到符合條件為止

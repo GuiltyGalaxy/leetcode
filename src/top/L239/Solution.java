@@ -1,70 +1,62 @@
 package top.L239;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 class Solution {
-    public int[] maxSlidingWindow(int[] nums, int k) {
-        int[] ans = new int[nums.length - k + 1];
-        int idx = 0;
-        Deque<Integer> window = new ArrayDeque<>();
-        for (int i = 0; i < nums.length; i++) {
-
-            //window過長時移除最前端
-            while (!window.isEmpty() && window.peek() < i - k + 1) {
-                window.poll();
-            }
-
-            //確保window最前端是最大值
-            while (!window.isEmpty() && nums[window.peekLast()] < nums[i]) {
-                window.pollLast();
-            }
-
-            window.offer(i);
-            if (i >= k - 1) {
-                ans[idx++] = nums[window.peek()];
-            }
-        }
-        return ans;
-    }
 
     /**
-     将链表 切分成大小为 k 的 chunk
-     然后 left 记录在 chunk 内从左往右的最大值,
-     right 记录 chunk 内从右往左的最大值
-     滑动窗口只需要找 right[i] 和 left[i + k - 1]的最大值
-             1  3  -1  * -3  5  3  *  6  7
-     left    1  3  3     -3  5  5     6  7
-     right   3  3  -1     5  5  3     7  7
-
-     TC: O(N)    SC: O(N) 16ms
+     * 計算原理
+     * 假設arr[8] = 1,3,-1,-3,5,3,6,7
+     * k = 5
+     * 我們可以知道會有 8-5+1 = 4個window[x]出現
+     * 然後我們用兩個arr去統計從兩個方向計算最大值，設為L->R、R->L
+     * window1 = 1,3,-1,-3,5
+     * - L->R  = 1,3,3,3,5
+     * - R->L  = 5,5,5,5,5
+     * window2 = 3,-1,-3,5,3
+     * - L->R  = 3,3,3,5,5
+     * - R->L  = 5,5,5,5,3
+     * window3 = -1,-3,5,3,6
+     * - L->R  = -1,-1,5,5,6
+     * - R->L  = 6,6,6,6,6
+     * window4 = -3,5,3,6,7
+     * - L->R  = -3,5,5,6,7
+     * - R->L  = 7,7,7,7,7
+     * 由上述統計觀察可發現
+     * 每個window最大值會為
+     * Math.max(L->R[x+k],R->L[x])
      */
-    public int[] maxSlidingWindow2(int[] nums, int k) {
-        int n = nums.length;
-        int[] res = new int[n - k + 1];
-        int[] L = new int[n];
-        int[] R = new int[n];
-        for (int i = 0; i < n; i += k) {
+    public int[] maxSlidingWindow(int[] arr, int k) {
+        int[] ret = new int[arr.length - k + 1];
+        // 紀錄兩種計算方向的MAX為多少
+        int[] leftDirMax = new int[arr.length];
+        int[] rightDirMax = new int[arr.length];
+        // window一次位移k
+        for (int i = 0; i < arr.length; i += k) {
+            // 當前window右邊邊界
+            int rightBound = Math.min(i + k - 1, arr.length - 1);
             int max = Integer.MIN_VALUE;
-            int bound = Math.min(i + k - 1, n - 1);
-            // from left to right -->
-            for (int j = i; j <= bound; j++) {
-                if (nums[j] > max)
-                    max = nums[j];
-                L[j] = max;
+            // 從左邊開始往右的最大值紀錄
+            for (int j = i; j <= rightBound; j++) {
+                if (arr[j] > max) {
+                    max = arr[j];
+                }
+                rightDirMax[j] = max;
             }
-            // from right to left <--
+            // 從右邊開始往左的最大值紀錄
             max = Integer.MIN_VALUE;
-            for (int j = bound; j >= i; j--) {
-                if (nums[j] > max)
-                    max = nums[j];
-                R[j] = max;
+            for (int j = rightBound; j >= i; j--) {
+                if (arr[j] > max) {
+                    max = arr[j];
+                }
+                leftDirMax[j] = max;
             }
         }
-        for (int i = 0; i < n - k + 1; i++) {
-            int j = i + k - 1;
-            res[i] = Math.max(R[i], L[j]);
+        // 開始計算每個window的最大值
+        for (int i = 0; i < ret.length; i++) {
+            // 記錄尾端
+            int end = i + k - 1;
+            // 比較兩方向統計的最大值
+            ret[i] = Math.max(rightDirMax[end], leftDirMax[i]);
         }
-        return res;
+        return ret;
     }
 }

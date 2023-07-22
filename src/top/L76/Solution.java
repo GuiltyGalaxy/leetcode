@@ -18,10 +18,11 @@ class Solution {
         }
 
         int count = 0;
-        int start = 0;
-        for (int i = 0; i < sArray.length; i++) {
+        int L = 0;
+        int R = 0;
+        while (R < sArray.length) {
 
-            char cur = sArray[i];
+            char cur = sArray[R];
             //cur含在tWindow中，且當前sWindow還沒達上限
             if (tWindow[cur] >= 1 && sWindow[cur] < tWindow[cur]) {
                 count++;
@@ -31,25 +32,26 @@ class Solution {
             sWindow[cur]++;
 
 
-            //該條件成立代表sWindow中有滿足tWindow條件的substring
+            //該條件成立代表sWindow中有滿足tWindow條件的集合
             if (count == tArray.length) {
                 if (tWindow[cur] >= 1 && (sWindow[cur] >= tWindow[cur])) {
                     //sWindow中包含多餘的tWindow char
                     //從start開始往後移除到sWindow內符合tWindow
-                    while (sWindow[sArray[start]] > tWindow[sArray[start]]) {
-                        sWindow[sArray[start]]--;
-                        start++;
+                    while (sWindow[sArray[L]] > tWindow[sArray[L]]) {
+                        sWindow[sArray[L]]--;
+                        L++;
                     }
                 }
 
                 //當前長度
-                int currentLen = i - start + 1;
+                int currentLen = R - L + 1;
                 //更新最小值
                 if (minCount > currentLen) {
                     minCount = currentLen;
-                    minString = s.substring(start, start + minCount);
+                    minString = s.substring(L, L + minCount);
                 }
             }
+            R++;
         }
 
         return minString;

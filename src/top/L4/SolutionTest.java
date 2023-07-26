@@ -21,4 +21,10 @@ class SolutionTest {
         Solution solution = new Solution();
         Assertions.assertEquals(solution.findMedianSortedArrays(new int[]{1, 2, 3}, new int[]{4, 5, 6}), 3.5);
     }
+
+    @Test
+    public void case4() {
+        Solution solution = new Solution();
+        Assertions.assertEquals(solution.findMedianSortedArrays(new int[]{1}, new int[]{4}), 2.5);
+    }
 }

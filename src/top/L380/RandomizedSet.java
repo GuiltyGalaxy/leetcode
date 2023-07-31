@@ -6,9 +6,9 @@ import java.util.Random;
 
 class RandomizedSet {
 
-    Random rand = new java.util.Random();
-    private HashMap<Integer, Integer> map = new HashMap<>();
-    private ArrayList<Integer> list = new ArrayList<>();
+    private final Random rand = new Random();
+    private final HashMap<Integer, Integer> map = new HashMap<>();
+    private final ArrayList<Integer> list = new ArrayList<>();
 
     /**
      * 單純使用HashSet的話

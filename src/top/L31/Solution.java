@@ -22,7 +22,7 @@ public class Solution {
      * 結束點為7
      */
     private int indexOfLastPeak(int[] nums) {
-        for (int i = nums.length - 1; 0 < i; i--) {
+        for (int i = nums.length - 1; i > 0; i--) {
             if (nums[i - 1] < nums[i]) {
                 return i;
             }
@@ -37,7 +37,7 @@ public class Solution {
      * return 3(index)
      */
     private int lastIndexOfGreater(int[] nums, int target) {
-        for (int i = nums.length - 1; 0 <= i; i--) {
+        for (int i = nums.length - 1; i >= 0; i--) {
             if (target < nums[i]) {
                 return i;
             }

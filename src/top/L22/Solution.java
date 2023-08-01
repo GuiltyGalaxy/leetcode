@@ -4,26 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
+
+    private final List<String> res = new ArrayList<>();
+
     public List<String> generateParenthesis(int n) {
-        List<String> list = new ArrayList<>();
-        dfs(list, "", 0, 0, n);
-        return list;
+        dfs(new StringBuilder(), 0, 0, n);
+        return res;
     }
 
-    public void dfs(List<String> list, String str, int open, int close, int max) {
+    public void dfs(StringBuilder sb, int open, int close, int max) {
 
         //長度符合則加入答案中
-        if (str.length() == max * 2) {
-            list.add(str);
+        if (sb.length() == max * 2) {
+            res.add(sb.toString());
             return;
         }
 
         if (open < max) {
-            dfs(list, str + "(", open + 1, close, max);
+            dfs(sb.append("("), open + 1, close, max);
+            sb.deleteCharAt(sb.length() - 1);
         }
-        //close < open才可加入close去找
+        // close < open才可加入close去找
+        // 這樣close才會有對應open
         if (close < open) {
-            dfs(list, str + ")", open, close + 1, max);
+            dfs(sb.append(")"), open, close + 1, max);
+            sb.deleteCharAt(sb.length() - 1);
         }
     }
 }

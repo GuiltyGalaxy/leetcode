@@ -17,7 +17,7 @@ class Solution {
     }
 
     //O(n) S(1)
-    public int findDuplicate_index_sort(int[] nums) {
+    public int findDuplicate2(int[] nums) {
         int len = nums.length;
         for (int i = 0; i < len; ) {
             int n = nums[i];
@@ -37,19 +37,23 @@ class Solution {
         return 0;
     }
 
-    //O(n) S(1)
-    public int findDuplicate_fastSlow(int[] nums) {
+
+
+    /**
+     * O(n) S(1)
+     * 使用快慢針解
+     * nums[]{1,3,4,2,2}可看成 1 > 3 > 4 > 2 > 2
+     * 且有一處會形成循環
+     * 0->1
+     * 1->3
+     * 2->4
+     * 3->2
+     * 4->2
+     * 0->1->3->2->4->2->4->2->…
+     */
+    public int findDuplicate3(int[] nums) {
         int slow = 0;
         int fast = 0;
-        //nums[]{1,3,4,2,2}可看成 1 > 3 > 4 > 2 > 2
-        //且有一處會形成循環
-//        0->1
-//        1->3
-//        2->4
-//        3->2
-//        4->2
-//
-//        0->1->3->2->4->2->4->2->…
         //使用快慢針
         do {
             slow = nums[slow];

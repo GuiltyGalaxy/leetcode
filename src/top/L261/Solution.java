@@ -127,6 +127,7 @@ class Solution {
 
     static class UnionFind {
         private final int[] parent;
+        // 紀錄群組大小
         private final int[] rank;
 
         public UnionFind(int n) {
@@ -139,7 +140,7 @@ class Solution {
         }
 
         public int find(int x) {
-            // 壓縮路徑
+            // 當自己的群主非自己時，往下繼續找並設定成正確群組
             if (parent[x] != x) {
                 parent[x] = find(parent[x]);
             }
@@ -152,6 +153,7 @@ class Solution {
             if (rootX == rootY) {
                 return false;
             }
+            // 大的群組合併小的，都一樣的話取rootX
             if (rank[rootX] > rank[rootY]) {
                 parent[rootY] = rootX;
             } else if (rank[rootX] < rank[rootY]) {

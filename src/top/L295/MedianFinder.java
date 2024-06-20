@@ -8,7 +8,7 @@ class MedianFinder {
     private final PriorityQueue<Integer> minHeap;
 
     public MedianFinder() {
-        // 這邊max表示數量較大的意思，非數字大就放過來
+        // 這邊max表示該堆的頭元素會是堆裡面最大的
         // 假設總堆為 1 2 3 4 5 6 7
         // 排序會為 4 3 2 1
         maxHeap = new PriorityQueue<>(Collections.reverseOrder());

@@ -2,7 +2,7 @@ package top.L211;
 
 public class WordDictionary {
 
-    private TrieNode root = new TrieNode();
+    private final TrieNode root = new TrieNode();
 
     public void addWord(String word) {
         TrieNode node = root;
@@ -16,26 +16,28 @@ public class WordDictionary {
     }
 
     public boolean search(String word) {
-        return match(word.toCharArray(), 0, root);
+        return searchInNode(word, root);
     }
 
-    private boolean match(char[] chs, int k, TrieNode node) {
-
-        if (k == chs.length) {
-            return node.isWord;
-        }
-
-        if (chs[k] == '.') {
-            //'.'要把所有字都找過一遍
-            for (int i = 0; i < node.children.length; i++) {
-                if (node.children[i] != null && match(chs, k + 1, node.children[i])) {
-                    return true;
+    private boolean searchInNode(String word, TrieNode node) {
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            if (c == '.') {
+                // 找任意符合，把所有節點都找過一遍
+                for (TrieNode child : node.children) {
+                    if (child != null && searchInNode(word.substring(i + 1), child)) {
+                        return true;
+                    }
                 }
+                return false;
+            } else {
+                if (node.children[c - 'a'] == null) {
+                    return false;
+                }
+                node = node.children[c - 'a'];
             }
-        } else {
-            return node.children[chs[k] - 'a'] != null && match(chs, k + 1, node.children[chs[k] - 'a']);
         }
-        return false;
+        return node.isWord;
     }
 
     public static class TrieNode {

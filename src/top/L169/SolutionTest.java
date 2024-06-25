@@ -7,14 +7,14 @@ class SolutionTest {
     @Test
     public void case1() {
         Solution solution = new Solution();
-        Assertions.assertEquals(solution.majorityElement(new int[]{3, 2, 3}), 3);
-        Assertions.assertEquals(solution.majorityElement1(new int[]{3, 2, 3}), 3);
+        Assertions.assertEquals(3, solution.majorityElement(new int[]{3, 2, 3}));
+        Assertions.assertEquals(3, solution.majorityElement1(new int[]{3, 2, 3}));
     }
 
     @Test
     public void case2() {
         Solution solution = new Solution();
-        Assertions.assertEquals(solution.majorityElement(new int[]{2, 2, 1, 1, 1, 2, 2}), 2);
-        Assertions.assertEquals(solution.majorityElement1(new int[]{2, 2, 1, 1, 1, 2, 2}), 2);
+        Assertions.assertEquals(2, solution.majorityElement(new int[]{2, 2, 1, 1, 1, 2, 2}));
+        Assertions.assertEquals(2, solution.majorityElement1(new int[]{2, 2, 1, 1, 1, 2, 2}));
     }
 }

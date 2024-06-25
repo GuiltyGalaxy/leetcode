@@ -26,13 +26,19 @@ class Solution {
 
     //Moore Majority Vote Algorithm
     public int majorityElement1(int[] nums) {
+        // 由於題目求的數一定會大於2/n
+        // 所以可以知道該數出現的次數一定大於剩下的數
+        // 假設nums[0]為答案
         int ans = nums[0];
+        // 出現次數1
         int cnt = 1;
         for (int i = 1; i < nums.length; i++) {
             if (cnt == 0) {
+                // 當次數為0代表該數一定不會是解答
                 cnt++;
                 ans = nums[i];
             } else if (ans == nums[i]) {
+                // 與當前答案相同的話次數+1
                 cnt++;
             } else {
                 cnt--;

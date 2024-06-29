@@ -8,12 +8,12 @@ class SolutionTest {
     @Test
     public void case1() {
         Solution solution = new Solution();
-        Assertions.assertEquals(solution.subarraySum(new int[]{1, 1, 1}, 2), 2);
+        Assertions.assertEquals(2, solution.subarraySum(new int[]{1, 1, 1}, 2));
     }
 
     @Test
     public void case2() {
         Solution solution = new Solution();
-        Assertions.assertEquals(solution.subarraySum(new int[]{1, 2, 3}, 3), 2);
+        Assertions.assertEquals(2, solution.subarraySum(new int[]{1, 2, 3}, 3));
     }
 }

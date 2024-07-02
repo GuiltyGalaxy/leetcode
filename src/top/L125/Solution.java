@@ -2,18 +2,18 @@ package top.L125;
 
 public class Solution {
     public boolean isPalindrome(String s) {
-        StringBuilder sb = new StringBuilder();
-        for (char c : s.toCharArray()) {
-            if (c >= 'A' && c <= 'Z') {
-                sb.append(Character.toLowerCase(c));
-            } else if (c >= 'a' && c <= 'z') {
-                sb.append(c);
-            } else if (c >= '0' && c <= '9') {
-                sb.append(c);
+        char[] ca = s.toLowerCase().toCharArray();
+        int L = 0;
+        int R = s.length()-1;
+        while(L < R){
+            while(L < R && !Character.isLetterOrDigit(ca[L]))L++;
+            while(L < R && !Character.isLetterOrDigit(ca[R]))R--;
+            if(ca[L] != ca[R]){
+                return false;
             }
+            L++;
+            R--;
         }
-        String rev = sb.toString();
-        sb.reverse();
-        return rev.equals(sb.toString());
+        return true;
     }
 }

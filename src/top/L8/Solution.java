@@ -1,45 +1,41 @@
 package top.L8;
 
 class Solution {
-    public int myAtoi(String str) {
+    public int myAtoi(String s) {
 
-        str = str.trim();
-        int len = str.length();
-
-        if (len == 0) {
-            return 0;
-        }
-
-        int index = 0;
-
-        //記錄正負
-        char ch;
-        boolean isNegative = (ch = str.charAt(index)) == '-';
-        if (isNegative || ch == '+') {
-            ++index;
-        }
-
-        //去掉尾數的最大值設為overflow門檻
-        int maxLimit = Integer.MAX_VALUE / 10;
+        // 去空白
+        s = s.trim();
         int result = 0;
-        while (index < len && isDigit(ch = str.charAt(index))) {
+        int sign = 1;
+        int len = s.length();
+        int i = 0;
 
-            int digit = ch - '0';
+        // 計算首位的 + -
+        if (i < len && (s.charAt(i) == '+' || s.charAt(i) == '-')) {
+            sign = s.charAt(i) == '+' ? 1 : -1;
+            i++;
+        }
 
-            //當計算到最後一位大於7代表該數一定為MAX or MIN
-            if (result > maxLimit || (result == maxLimit && digit > 7)) {
-                return isNegative ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        // 設置最大INT的限制
+        int maxLimit = Integer.MAX_VALUE / 10;
+        int maxLimitLast = Integer.MAX_VALUE % 10;
+
+        while (i < len && s.charAt(i) >= '0' && s.charAt(i) <= '9') {
+
+            // 如果result已經大於限制
+            // 或是說下一位的最後一碼大於限制的最後一碼
+            // 該解答只有可能為Integer.MAX_VALUE or Integer.MIN_VALUE
+            if (result > maxLimit ||
+                    (result == maxLimit && s.charAt(i) - '0' > maxLimitLast)) {
+                return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             }
 
-            result = (result * 10) + digit;
+            // 累加結果
+            result = result * 10 + (s.charAt(i) - '0');
+            i++;
 
-            index++;
         }
 
-        return isNegative ? -result : result;
-    }
-
-    private boolean isDigit(char ch) {
-        return ch >= '0' && ch <= '9';
+        return result * sign;
     }
 }

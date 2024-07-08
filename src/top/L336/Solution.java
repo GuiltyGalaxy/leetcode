@@ -8,86 +8,84 @@ import java.util.List;
 class Solution {
     public List<List<Integer>> palindromePairs(String[] words) {
 
-        //1- null + palindrome, palindrome + null
-        //2- s1 + s1.reverse
-        //3- [s1,s2] + s1.reverse, s2 is palindrome
-        //4- s2.reverse + [s1,s2], s1 is palindrome
+        List<List<Integer>> ans = new ArrayList<>();
 
-        //optimize:
-        //1- dp & cache for isPalindrome
-        //2- Trie for find if reverse exist
-
-        List<List<Integer>> res = new ArrayList<>();
-
-        //store all words in dict
+        // 將String[]轉換成map並記錄出現位子
         HashMap<String, Integer> map = new HashMap<>();
-        boolean[] dict = new boolean[5001];
-        int cnt = 0;
+        // 紀錄是否有對應長度的字，題目範圍長度只出到0-5000
+        boolean[] hasLength = new boolean[5001];
+        int index = 0;
         for (String word : words) {
-            map.put(word, cnt);
-            cnt++;
-            dict[word.length()] = true;
+            map.put(word, index);
+            index++;
+            hasLength[word.length()] = true;
         }
 
         for (int i = 0; i < words.length; i++) {
 
             String word = words[i];
 
-            if (word.length() == 0) {
+            if (word.isEmpty()) {
                 continue;
             }
 
-            char[] ch = word.toCharArray();
+            char[] cs = word.toCharArray();
+            int csLen = cs.length;
 
             String re = new StringBuilder(word).reverse().toString();
 
-            //3- [s1,s2] + s1.reverse
-            for (int j = 0; j < ch.length - 1; j++) {
-                if (dict[j + 1] && isPalindrome(ch, j + 1, ch.length - 1)) {
-                    String check = re.substring(ch.length - j - 1, ch.length);
-
+            // 情況1:
+            // 當s1[j:len]以符合Palindrome，這時候只要去找對應的s1.reverse[len-j:len]補齊即可
+            // s1 = zxcvbccd
+            // s1.reverse = dccbvcxz.
+            // 由於bccd已達成Palindrome，所以不管前面有哪些字母，只要找到對應的Palindrome即可
+            // 也就是 zxcvbccd + vcxz
+            for (int j = 0; j < csLen - 1; j++) {
+                if (hasLength[j + 1] && isPalindrome(cs, j + 1, csLen - 1)) {
+                    String check = re.substring(csLen - j - 1, csLen);
                     if (map.containsKey(check)) {
-                        res.add(Arrays.asList(i, map.get(check)));
+                        ans.add(Arrays.asList(i, map.get(check)));
                     }
                 }
             }
 
-            //4- s2.reverse + [s1,s2]
-            for (int j = 0; j < ch.length - 1; j++) {
-
-                if (dict[ch.length - j - 1] && isPalindrome(ch, 0, j)) {
-                    String check = re.substring(0, ch.length - j - 1);
-
+            // 情況2:
+            // 同理情況1，只是找的對象反過來，原本是找後面字母Palindrome
+            // 也就是s1[j:len]換成s1[0:j]去找前面字母Palindrome
+            // s1 = bccdzxcv
+            // s1.reverse = vcxzdccb
+            // 也就是 bccd + vcxzdccb
+            for (int j = 0; j < csLen - 1; j++) {
+                if (hasLength[csLen - j - 1] && isPalindrome(cs, 0, j)) {
+                    String check = re.substring(0, csLen - j - 1);
                     if (map.containsKey(check)) {
-                        res.add(Arrays.asList(map.get(check), i));
+                        ans.add(Arrays.asList(map.get(check), i));
                     }
                 }
             }
 
-            //1- null + palindrome, palindrom + null
-            //2- s1 + s1.reverse
-            if (isPalindrome(ch, 0, ch.length - 1)) {
+            if (isPalindrome(cs, 0, csLen - 1)) {
+                // 情況3:自己本身就可以達成Palindrome
                 if (map.containsKey("")) {
-                    int index = map.get("");
-                    res.add(Arrays.asList(index, i));
-                    res.add(Arrays.asList(i, index));
+                    int emptyIndex = map.get("");
+                    // 正反都可以達成所以記得要加入2組
+                    ans.add(Arrays.asList(emptyIndex, i));
+                    ans.add(Arrays.asList(i, emptyIndex));
                 }
             } else if (map.containsKey(re)) {
-                res.add(Arrays.asList(i, map.get(re)));
+                // 情況4:有對應自己本身的reverse字串
+                ans.add(Arrays.asList(i, map.get(re)));
             }
         }
 
-        return res;
+        return ans;
     }
 
-    //[left, right]
-    // can be improved by dynamic programming, but need extra space to store the answer of subproblem
     private boolean isPalindrome(char[] ch, int left, int right) {
         while (left < right) {
-            if (ch[left] != ch[right])
+            if (ch[left++] != ch[right--]) {
                 return false;
-            left++;
-            right--;
+            }
         }
         return true;
     }

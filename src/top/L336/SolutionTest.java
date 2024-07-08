@@ -16,7 +16,7 @@ class SolutionTest {
         ans.add(Arrays.asList(1, 0));
         ans.add(Arrays.asList(3, 2));
         ans.add(Arrays.asList(2, 4));
-        Assertions.assertIterableEquals(solution.palindromePairs(new String[]{"abcd", "dcba", "lls", "s", "sssll"}), ans);
+        Assertions.assertIterableEquals(ans, solution.palindromePairs(new String[]{"abcd", "dcba", "lls", "s", "sssll"}));
     }
 
 }

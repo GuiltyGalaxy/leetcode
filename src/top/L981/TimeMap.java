@@ -33,16 +33,19 @@ public class TimeMap {
             return tmp.get(end).value;
         }
 
-        // 建立搜尋目標
-        TimedValue tv = new TimedValue("", timestamp);
-        int idx = Collections.binarySearch(tmp, tv, Comparator.comparingInt(a -> a.timestamp));
-        // idx為負數代表沒找到符合的值
-        // binarySearch會返回最接近的插入點idx
-        // 所以轉正後-2就為最接近點
-        if (idx < 0) {
-            idx = -idx - 2;
+        // 使用binary search找最靠近timestamp的value
+        String result = "";
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            TimedValue t = tmp.get(mid);
+            if (t.timestamp <= timestamp) {
+                result = t.value;
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
         }
-        return tmp.get(idx).value;
+        return result;
     }
 
     static class TimedValue {

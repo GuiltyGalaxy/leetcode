@@ -6,21 +6,22 @@ class Solution {
         int row = matrix.length;
         int col = matrix[0].length;
 
-        //把2D當作1D運算
-        int i = 0, j = row * col - 1;
-        //用一般binary search
-        while (i <= j) {
+        // 把2D當作1D運算
+        int L = 0;
+        int R = row * col - 1;
+        // 用一般binary search
+        while (L <= R) {
 
-            int mid = (i + j) / 2;
+            int M = (L + R) / 2;
             // matrix[i][j] ==> [i * col + j]
-            int val = matrix[mid / col][mid % col];
+            int val = matrix[M / col][M % col];
 
             if (val == target) {
                 return true;
             } else if (val > target) {
-                j = mid - 1;
+                R = M - 1;
             } else {
-                i = mid + 1;
+                L = M + 1;
             }
         }
 

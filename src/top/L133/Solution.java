@@ -1,35 +1,30 @@
 package top.L133;
 
-import java.util.Arrays;
+import java.util.HashMap;
 
 class Solution {
 
+    private final HashMap<Node, Node> map = new HashMap<>();
+
     public Node cloneGraph(Node node) {
+
         if (node == null) {
             return null;
         }
-        Node copy = new Node(node.val);
-        //有限制最多100個node
-        //visited用來記錄node是否已被找過
-        Node[] visited = new Node[101];
-        Arrays.fill(visited, null);
-        dfs(node, copy, visited);
-        return copy;
-    }
 
-    public void dfs(Node node, Node copy, Node[] visited) {
-        visited[copy.val] = copy;
-        for (Node n : node.neighbors) {
-            if (visited[n.val] == null) {
-                //新node
-                Node newNode = new Node(n.val);
-                copy.neighbors.add(newNode);
-                //繼續找
-                dfs(n, newNode, visited);
+        Node newNode = new Node(node.val);
+        map.put(node, newNode);
+
+        for (Node k : node.neighbors) {
+            if (map.containsKey(k)) {
+                // map中已有過相同的node則取出加入至neighbors
+                newNode.neighbors.add(map.get(k));
             } else {
-                //已被找過的node就單純加到neighbors即可
-                copy.neighbors.add(visited[n.val]);
+                // 沒對應的情況則以該node繼續往下clone，並將結果回寫至neighbors
+                newNode.neighbors.add(cloneGraph(k));
             }
         }
+
+        return newNode;
     }
 }

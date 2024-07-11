@@ -15,22 +15,23 @@ class Solution {
         int end = n;
 
         while (start <= end) {
-            int mid = (start + end) / 2;
             // 取各自的mid
-            // mid增加，leftASize->>> <<<-leftBSize
-            // mid減少，<<<-leftASize leftBSize->>>
-            int leftASize = mid;
-            int leftBSize = realMedInMergedArr - mid;
-            // 2個array前後各設置指標
-            // 所以會有4個指標去比較
-            // left是小數指標，超出範圍用Integer.MIN_VALUE替代
-            int leftA = (leftASize > 0) ? A[leftASize - 1] : Integer.MIN_VALUE;
-            int leftB = (leftBSize > 0) ? B[leftBSize - 1] : Integer.MIN_VALUE;
-            // right是大數指標，超出範圍用Integer.MAX_VALUE替代
-            int rightA = (leftASize < n) ? A[leftASize] : Integer.MAX_VALUE;
-            int rightB = (leftBSize < m) ? B[leftBSize] : Integer.MAX_VALUE;
+            int aMid = (start + end) / 2;
+            int bMid = realMedInMergedArr - aMid;
+            // 我們要尋找的目標是這條分隔線在切A跟B的時候，其分隔線兩邊數字要符合真正的中位數分隔線
+            // 所以利用2分搜尋去尋找這條線的位子
+            // 圖示
+            // A : X X leftA |-> rightA O O
+            // B : X X X leftB |-> rightB O O O
+            int leftA = (aMid > 0) ? A[aMid - 1] : Integer.MIN_VALUE;
+            int rightA = (aMid < n) ? A[aMid] : Integer.MAX_VALUE;
+            int leftB = (bMid > 0) ? B[bMid - 1] : Integer.MIN_VALUE;
+            int rightB = (bMid < m) ? B[bMid] : Integer.MAX_VALUE;
 
-            // 達成條件表示該指標兩邊所代表的數字為all mid
+            // 當這條件達成時代表該分隔線是實質中位數分隔線
+            // 也就是達成所有X的數字都小於O
+            // A : X X leftA |-> rightA O O
+            // B : X X X leftB |-> rightB O O O
             if (leftA <= rightB && leftB <= rightA) {
                 // 偶數的情況要算2個
                 if ((m + n) % 2 == 0) {
@@ -40,10 +41,9 @@ class Solution {
                 }
                 return Math.max(leftA, leftB);
             } else if (leftA > rightB) {
-                // A最小比B最大大則要向外靠
-                end = mid - 1;
+                end = aMid - 1;
             } else {
-                start = mid + 1;
+                start = aMid + 1;
             }
         }
         return 0.0;

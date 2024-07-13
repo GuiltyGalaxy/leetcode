@@ -8,19 +8,25 @@ class Solution {
         int ans = 0;
         int n = grid.length;
         int m = grid[0].length;
+        // 紀錄總共有幾個新鮮的
+        int fresh = 0;
         //BFS queue
         Queue<int[]> queue = new LinkedList<>();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (grid[i][j] == 2) {
                     queue.add(new int[]{i, j});
+                } else if (grid[i][j] == 1) {
+                    fresh++;
                 }
             }
         }
 
         int[][] directions = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
-        while (!queue.isEmpty()) {
+        // 如果fresh已經都沒了就不用繼續算
+        while (!queue.isEmpty() && fresh != 0) {
+            ans++;
             int size = queue.size();
             for (int i = 0; i < size; i++) {
                 int[] point = queue.poll();
@@ -34,26 +40,14 @@ class Solution {
                         continue;
                     }
                     if (grid[row][col] == 1) {
+                        fresh--;
                         grid[row][col] = 2;
                         queue.add(new int[]{row, col});
                     }
                 }
             }
-            //要先確認第一輪有1->2的情況
-            //防止全部都為2的情況
-            if (!queue.isEmpty()) {
-                ans++;
-            }
         }
 
-        //檢查是否有還有1存在
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (grid[i][j] == 1) {
-                    return -1;
-                }
-            }
-        }
-        return ans;
+        return fresh == 0 ? ans : -1;
     }
 }

@@ -20,7 +20,7 @@ class SolutionTest {
         ans.add(List.of("John", "john00@mail.com", "john_newyork@mail.com", "johnsmith@mail.com"));
         ans.add(List.of("Mary", "mary@mail.com"));
         ans.add(List.of("John", "johnnybravo@mail.com"));
-        Assertions.assertIterableEquals(solution.accountsMerge(in), ans);
+        Assertions.assertIterableEquals(ans, solution.accountsMerge(in));
     }
 
 }

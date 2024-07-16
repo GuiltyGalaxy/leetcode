@@ -1,8 +1,6 @@
 package top.L310;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class Solution {
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
@@ -11,15 +9,15 @@ class Solution {
             return List.of(0);
         }
 
-        //初始化
         ArrayList<Integer>[] adj = new ArrayList[n];
+        // 該點的連接數
         int[] degree = new int[n];
 
         for (int i = 0; i < n; i++) {
             adj[i] = new ArrayList<>();
         }
 
-        //建立連結圖
+        // 建立雙向連結圖
         for (int[] e : edges) {
             int v = e[0];
             int u = e[1];
@@ -30,41 +28,35 @@ class Solution {
             degree[v]++;
         }
 
-        ArrayDeque<Integer> queue = new ArrayDeque<>();
+        Queue<Integer> q = new LinkedList<>();
 
-        //先從連接線只有一條的(degree==1)移除掉
+        // 先從連接線只有一條的(degree==1)移除掉
         for (int i = 0; i < n; i++) {
             if (degree[i] == 1) {
-                queue.add(i);
+                q.add(i);
             }
         }
 
-        //最少要有兩個點才可以移除
+        // 依序移除最外層的連接點
+        // 當移除到剩下1點(偶數2點)時代表該點為最小高度節點
         while (n > 2) {
 
-            int size = queue.size();
+            int size = q.size();
             n -= size;
 
             while (size-- > 0) {
-
-                int rem = queue.remove();
-                //移除所有相關連接點
-                for (int i : adj[rem]) {
+                int remove = q.remove();
+                // 移除所有相關連接點
+                for (int i : adj[remove]) {
                     degree[i]--;
-                    //移除後如果該點也只剩一個連線則加入下輪名單
+                    // 移除後如果該點也只剩一個連線則加入下輪移除
                     if (degree[i] == 1) {
-                        queue.add(i);
+                        q.add(i);
                     }
                 }
             }
         }
 
-        //最後一輪的點就會是Minimum Height Trees的可能點
-        ArrayList<Integer> res = new ArrayList<>();
-        while (queue.size() > 0) {
-            res.add(queue.pop());
-        }
-
-        return res;
+        return q.stream().toList();
     }
 }

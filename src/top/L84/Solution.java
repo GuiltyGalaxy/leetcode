@@ -1,12 +1,11 @@
 package top.L84;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
 
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        // 這邊使用ArrayDeque會快很多24ms->142ms，但我不知道為什麼明明只用到stack的功能但用Deque就快這麼多
-        // 先用Stack解釋會比較好理解
-        Stack<Integer> s = new Stack<>();
+        // 由於Stack是線程安全，這邊使用ArrayDeque會比較快(142ms->24ms)
+        ArrayDeque<Integer> s = new ArrayDeque<>();
         int n = heights.length;
         int res = 0;
         for (int i = 0; i < n; ++i) {

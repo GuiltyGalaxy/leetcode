@@ -8,18 +8,18 @@ class SolutionTest {
     @Test
     public void case1() {
         Solution solution = new Solution();
-        Assertions.assertEquals(solution.minEatingSpeed(new int[]{3, 6, 7, 11}, 8), 4);
+        Assertions.assertEquals(4, solution.minEatingSpeed(new int[]{3, 6, 7, 11}, 8));
     }
 
     @Test
     public void case2() {
         Solution solution = new Solution();
-        Assertions.assertEquals(solution.minEatingSpeed(new int[]{30, 11, 23, 4, 20}, 5), 30);
+        Assertions.assertEquals(30, solution.minEatingSpeed(new int[]{30, 11, 23, 4, 20}, 5));
     }
 
     @Test
     public void case3() {
         Solution solution = new Solution();
-        Assertions.assertEquals(solution.minEatingSpeed(new int[]{30, 11, 23, 4, 20}, 6), 23);
+        Assertions.assertEquals(23, solution.minEatingSpeed(new int[]{30, 11, 23, 4, 20}, 6));
     }
 }

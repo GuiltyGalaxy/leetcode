@@ -3,33 +3,36 @@ package top.L875;
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
 
-        int l = 1;
-        int r = 1000000000;
-        // 使用binary search逼近
-        while (l < r) {
+        // 因最快數度吃完就是每小時可吃一顆樹
+        // 故計算範圍為最大香蕉串
+        int L = 1;
+        int R = 0;
+        for (int pile : piles) {
+            R = Math.max(R, pile);
+        }
 
-            int eatSpeed = (l + r) / 2;
-            int totalHours = 0;
+        // 開始計算最小需要幾小時吃完
+        while (L < R) {
 
-            // 計算以該eatSpeed吃完所有香蕉的時間
-            // 加上eatSpeed - 1當作基底(因除數是eatSpeed)
-            // -1的目的是避免出現剛好吃完的情況會多1h
-            // 舉例
-            // eatSpeed=4
-            // pile=3,h=1
-            // pile=4,h=1(這邊沒-1會變成h=2)
-            // pile=5,h=2
+            int eatSpeed = (R + L) / 2;
+
+            // 計算以目前的的速度吃是否吃得完
+            int hoursNeeded = 0;
             for (int pile : piles) {
-                totalHours += (pile + eatSpeed - 1) / eatSpeed;
+                // pile - 1是為了避免剛好吃完會多+1小時
+                hoursNeeded += (pile - 1) / eatSpeed;
+                // 每吃完一棵要休息一小時
+                hoursNeeded += 1;
             }
-
-            // 依結果決定向哪邊逼近
-            if (totalHours > h) {
-                l = eatSpeed + 1;
+            // 依照試算結果決定要加速還減速
+            if (hoursNeeded >= h) {
+                R = eatSpeed;
             } else {
-                r = eatSpeed;
+                L = eatSpeed + 1;
             }
         }
-        return l;
+        // 最後L為最小吃完速度
+        return L;
     }
+
 }

@@ -3,57 +3,47 @@ package top.L76;
 class Solution {
     public String minWindow(String s, String t) {
 
-        String minString = "";
-        int minCount = Integer.MAX_VALUE;
-
-        char[] sArray = s.toCharArray();
-        char[] tArray = t.toCharArray();
-
-        //紀錄當前window中char統計
-        char[] sWindow = new char[256];
-        char[] tWindow = new char[256];
-
-        for (char c : tArray) {
-            tWindow[c]++;
+        char[] sArr = s.toCharArray();
+        char[] tArr = t.toCharArray();
+        // 計算t每個字母出現次數
+        int[] freq = new int[128];
+        for (char c : tArr) {
+            freq[c]++;
         }
 
-        int count = 0;
         int L = 0;
         int R = 0;
-        while (R < sArray.length) {
-
-            char cur = sArray[R];
-            //cur含在tWindow中，且當前sWindow還沒達上限
-            if (tWindow[cur] >= 1 && sWindow[cur] < tWindow[cur]) {
-                count++;
-            }
-
-            //將當前char累加至sWindow
-            sWindow[cur]++;
-
-
-            //該條件成立代表sWindow中有滿足tWindow條件的集合
-            if (count == tArray.length) {
-                if (tWindow[cur] >= 1 && (sWindow[cur] >= tWindow[cur])) {
-                    //sWindow中包含多餘的tWindow char
-                    //從start開始往後移除到sWindow內符合tWindow
-                    while (sWindow[sArray[L]] > tWindow[sArray[L]]) {
-                        sWindow[sArray[L]]--;
-                        L++;
-                    }
-                }
-
-                //當前長度
-                int currentLen = R - L + 1;
-                //更新最小值
-                if (minCount > currentLen) {
-                    minCount = currentLen;
-                    minString = s.substring(L, L + minCount);
-                }
+        // 紀錄最小字串起始位子
+        int startIndex = 0;
+        int size = Integer.MAX_VALUE;
+        int cnt = tArr.length;
+        // 維護一個window，其中滿足所有t都包含在其中，並且是最短的window
+        while (R < sArr.length) {
+            // 更新freq，如果是在t中的--後會為0
+            if (freq[sArr[R]]-- > 0) {
+                cnt--;
             }
             R++;
+            // 滿足條件開使推算L
+            while (cnt == 0) {
+                if (R - L < size) {
+                    size = R - L;
+                    startIndex = L;
+                }
+                // 遇到freq回正代表移除的L在t中，把cnt加回
+                if (freq[sArr[L]]++ == 0) {
+                    cnt++;
+                }
+                L++;
+            }
         }
 
-        return minString;
+        // 都沒有的情況
+        if (size == Integer.MAX_VALUE) {
+            return "";
+        }
+
+        // 最後再把字串拚出來，如果計算中就拚會浪費一些時間
+        return s.substring(startIndex, startIndex + size);
     }
 }

@@ -12,8 +12,8 @@ class SolutionTest {
     public void case1() {
         Solution solution = new Solution();
         List<List<String>> ans = new ArrayList<>();
-        ans.add(Arrays.asList("a","a","b"));
-        ans.add(Arrays.asList("aa","b"));
-        Assertions.assertEquals(solution.partition( "aab"), ans);
+        ans.add(Arrays.asList("a", "a", "b"));
+        ans.add(Arrays.asList("aa", "b"));
+        Assertions.assertEquals(ans, solution.partition("aab"));
     }
 }

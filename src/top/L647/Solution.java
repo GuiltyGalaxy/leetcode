@@ -7,11 +7,11 @@ class Solution {
     public int countSubstrings(String s) {
         char[] str = s.toCharArray();
         int n = str.length;
-        //只要把以i為出發點的字母都找過一遍即可
+        // 只要把以i為出發點的字母都找過一遍即可
         for (int i = 0; i < n; i++) {
-            //even情況
+            // odd情況
             isPalindrome(str, i, i, n);
-            //odd情況
+            // even情況
             isPalindrome(str, i, i + 1, n);
         }
         return ans;

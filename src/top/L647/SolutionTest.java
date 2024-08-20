@@ -8,12 +8,12 @@ class SolutionTest {
     @Test
     public void case1() {
         Solution solution = new Solution();
-        Assertions.assertEquals(solution.countSubstrings("abc"), 3);
+        Assertions.assertEquals(3, solution.countSubstrings("abc"));
     }
 
     @Test
     public void case2() {
         Solution solution = new Solution();
-        Assertions.assertEquals(solution.countSubstrings("aaa"), 6);
+        Assertions.assertEquals(6, solution.countSubstrings("aaa"));
     }
 }

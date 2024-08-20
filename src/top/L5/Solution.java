@@ -54,4 +54,81 @@ public class Solution {
         }
     }
 
+    /**
+     * DP解法
+     */
+    public String longestPalindrome2(String s) {
+
+        if (s.length() <= 1) {
+            return s;
+        }
+
+        int maxLen = 1;
+        int start = 0;
+        int end = 0;
+        // 如果i到j有palindrome，則dp[i][j] = true
+        boolean[][] dp = new boolean[s.length()][s.length()];
+
+        for (int i = 0; i < s.length(); ++i) {
+            dp[i][i] = true;
+            for (int j = 0; j < i; ++j) {
+                if (s.charAt(j) == s.charAt(i) && (i - j <= 2 || dp[j + 1][i - 1])) {
+                    dp[j][i] = true;
+                    // 更新最大長度
+                    if (i - j + 1 > maxLen) {
+                        maxLen = i - j + 1;
+                        start = j;
+                        end = i;
+                    }
+                }
+            }
+        }
+
+        return s.substring(start, end + 1);
+    }
+
+    /**
+     * Manacher's解法 O(n)
+     */
+    public String longestPalindrome3(String s) {
+        // 插入補助符號 abcd => $#a#b#c#d#@
+        StringBuilder t = new StringBuilder("$#");
+        for (int i = 0; i < s.length(); i++) {
+            t.append(s.charAt(i));
+            t.append('#');
+        }
+        t.append('@');
+
+        int[] p = new int[t.length()];
+        // 最左邊回文起始中心位子
+        int paliLeftRange = 0;
+        // 最右邊回文起始中心位子
+        int paliRightRange = 0;
+        int end = 0;
+        int start = 0;
+        for (int i = 1; i < t.length() - 1; i++) {
+
+            // i如果再右邊界中
+            // 則去計算p[2 * paliLeftRange - i], paliRightRange - i哪個比較小當作起始值
+            p[i] = paliRightRange > i ? Math.min(p[2 * paliLeftRange - i], paliRightRange - i) : 1;
+
+            // 計算以i為中心有多長的Palindrome
+            while (t.charAt(i + p[i]) == t.charAt(i - p[i])) {
+                p[i]++;
+            }
+
+            // i + p[i]為最右邊對稱回文起始點
+            // 最大回文長度有異動更新邊界
+            if (paliRightRange < i + p[i]) {
+                paliRightRange = i + p[i];
+                paliLeftRange = i;
+            }
+
+            if (start < p[i]) {
+                start = p[i];
+                end = i;
+            }
+        }
+        return s.substring((end - start) / 2, (end - start) / 2 + start - 1);
+    }
 }

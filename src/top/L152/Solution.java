@@ -7,18 +7,18 @@ class Solution {
      * 2.遇到0的情況就從新計算，把0當做一個斷點，不管從哪邊開始遇到0都會為0，所以當作新的數組開始
      */
     public int maxProduct(int[] nums) {
-        //紀錄頭尾目前乘積
-        int r = 0;
-        int l = 0;
-        //預設答案為第一個數
-        //因[-2],ans = -2
-        int ans = nums[0];
+        // 紀錄頭尾目前乘積
+        double r = 0;
+        double l = 0;
+        // 預設答案為第一個數
+        // 因[-2],ans = -2
+        double ans = nums[0];
         for (int i = 0; i < nums.length; i++) {
-            //乘積為0代表上個數遇到0，則替換成1從新開始
+            // 乘積為0代表上個數遇到0，則替換成1從新開始
             l = (l == 0 ? 1 : l) * nums[i];
             r = (r == 0 ? 1 : r) * nums[nums.length - i - 1];
             ans = Math.max(ans, Math.max(l, r));
         }
-        return ans;
+        return (int) ans;
     }
 }

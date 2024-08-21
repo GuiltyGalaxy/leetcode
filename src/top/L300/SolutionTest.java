@@ -24,4 +24,11 @@ class SolutionTest {
         Assertions.assertEquals(1, solution.lengthOfLIS(new int[]{7, 7, 7, 7, 7, 7, 7}));
         Assertions.assertEquals(1, solution.lengthOfLIS2(new int[]{7, 7, 7, 7, 7, 7, 7}));
     }
+
+    @Test
+    public void case4() {
+        Solution solution = new Solution();
+        Assertions.assertEquals(5, solution.lengthOfLIS(new int[]{0, 1, 2, 3, 1, 2, 5, 1}));
+        Assertions.assertEquals(5, solution.lengthOfLIS2(new int[]{0, 1, 2, 3, 1, 2, 5, 1}));
+    }
 }

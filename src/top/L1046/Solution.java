@@ -5,12 +5,7 @@ import java.util.PriorityQueue;
 class Solution {
     public int lastStoneWeight(int[] stones) {
         // 遞減排序
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> {
-            if (a.equals(b)) {
-                return 0;
-            }
-            return a > b ? -1 : 1;
-        });
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
 
         for (int stone : stones) {
             pq.offer(stone);
